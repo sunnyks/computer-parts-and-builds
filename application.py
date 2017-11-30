@@ -159,7 +159,7 @@ def showHome():
 
 @app.route('/part/')
 def showAllParts():
-    parts = session.query(Part).order_by(asc(Part.name))
+    parts = session.query(Part).all()
     if 'username' in login_session:
         return render_template('allparts.html', parts = parts)
     else:
@@ -214,13 +214,23 @@ def editPart(part_id):
         flash('Part successfully edited')
         return redirect(url_for('showPart', part_id = part_id))
     else:
-        return render_template('editPart.html', part_id = part_id)
+        return render_template('editPart.html', partToEdit = editedPart)
 
 
 
 
 @app.route('/part/<int:part_id>/delete', methods = ['GET', 'POST'])
 def deletePart(part_id):
+    if 'username' not in login_session:
+        return redirect('/login')
+    deletePart = session.query(Part).filter_by(id = part_id).one()
+    if request.method = 'POST':
+        session.delete(deletePart)
+        session.commit()
+        flash('Part Successfully Deleted')
+        return redirect(url_for('showHome'))
+    else:
+        return render_template('deletePart.html', partToDelete = deletePart)
 
 
 
@@ -235,7 +245,12 @@ def compareParts(part_id1, part_id2):
 
 
 @app.route('/part/<string:part_type>/')
-def showAllPartsOfType():
+def showAllPartsOfType(part_type):
+    parts = session.query(Part).filter_by(type = part_type).all()
+    if 'username' in login_session:
+        return render_template('partsoftype.html', parts = parts)
+    else:
+        return render_template('publicpartsoftype.html', parts = parts)
 
 
 
