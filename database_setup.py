@@ -181,26 +181,26 @@ class Part(Base):
 
 
 #table for wishlist
-class Wishlist(Base):
-    __tablename__ = 'wishlist'
-
-    id = Column(Integer, primary_key = True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
-    part_id = Column(Integer, ForeignKey('part.id'))
-    part = relationship(Part)
-
-
-# table for builds
-
-class Build(Base):
-    __tablename__ = 'build'
-
-    id = Column(Integer, primary_key = True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    name = Column(String(100))
-    description = Column(String(250))
-    price = Column(String(15))
+# class Wishlist(Base):
+#     __tablename__ = 'wishlist'
+#
+#     id = Column(Integer, primary_key = True)
+#     user_id = Column(Integer, ForeignKey('user.id'))
+#     user = relationship(User)
+#     part_id = Column(Integer, ForeignKey('part.id'))
+#     part = relationship(Part)
+#
+#
+# # table for builds
+#
+# class Build(Base):
+#     __tablename__ = 'build'
+#
+#     id = Column(Integer, primary_key = True)
+#     user_id = Column(Integer, ForeignKey('user.id'))
+#     name = Column(String(100))
+#     description = Column(String(250))
+#     price = Column(String(15))
     #part_id =
 
 

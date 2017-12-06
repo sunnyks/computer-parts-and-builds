@@ -3,7 +3,8 @@ app = Flask(__name__)
 
 from sqlalchemy import create_engine, asc
 from sqlalchemy import sessionmaker
-from database_setup import Base, User, Part, Motherboard, CPU, CPU_Cooler, Memory, Storage, GPU, PowerSupply, SoundCard, Wishlist, Build
+from database_setup import Base, User, Part,
+#from database_setup import Motherboard, CPU, CPU_Cooler, Memory, Storage, GPU, PowerSupply, SoundCard, Wishlist, Build
 
 from flask import session as login_session
 import random, string
@@ -15,6 +16,7 @@ from flask import make_response
 import requests
 
 
+# CLIENT JSON thing
 
 engine = create_engine('sqlite:///computerpartsandbuilds.db')
 Base.metadata.bind = engine
@@ -151,8 +153,12 @@ def gdisconnect():
 
 
 @app.route('/')
+@app.route('/home/')
 def showHome():
-    # list categories and show recently added parts & builds
+    # list types of pc part
+    types = session.query(Part.type.distinct().label("type"))
+    distinct_types = [row.type for row in types.all()]
+    return render_template('home.html', types = distinct_types)
 
 
 
@@ -235,114 +241,66 @@ def deletePart(part_id):
 
 
 
-@app.route('/compare/<int:part_id1>/<int:part_id2>/')
-def compareParts(part_id1, part_id2):
-
-
-
-
-
-
-
 @app.route('/part/<string:part_type>/')
 def showAllPartsOfType(part_type):
     parts = session.query(Part).filter_by(type = part_type).all()
     if 'username' in login_session:
-        return render_template('partsoftype.html', parts = parts)
+        return render_template('partsoftype.html', parts = parts, type = part_type)
     else:
-        return render_template('publicpartsoftype.html', parts = parts)
+        return render_template('publicpartsoftype.html', parts = parts, type = part_type)
+
+
+
+# @app.route('/compare/<int:part_id1>/<int:part_id2>/')
+# def compareParts(part_id1, part_id2):
 
 
 
 
+############################################################################
+#
+#                           BUILD METHODS
+#
+##########################################################################
 
-
-# @app.route('/part/cpu/')
-# def showAllCPUs():
+# @app.route('/build/')
+# def showAllBuilds():
 #
 #
 #
 #
-# @app.route('/part/cpucooler/')
-# def showAllCPUCoolers():
+# @app.route('/build/<string:build_name>')
+# def showBuild(build_name):
 #
 #
 #
 #
-# @app.route('/part/motherboard/')
-# def showAllMotherboards():
+# @app.route('/build/new', methods = ['GET', 'POST'])
+# def createBuild():
 #
 #
 #
 #
-# @app.route('/part/memory/')
-# def showAllMemory():
+#
+# @app.route('/build/<string:build_name>/edit', methods = ['GET', 'POST'])
+# def editBuild(build_name):
 #
 #
 #
 #
-# @app.route('/part/storage/')
-# def showAllStorage():
+#
+# @app.route('/build/<string:build_name>/delete', methods = ['GET', 'POST'])
+# def deleteBuild(build_name):
 #
 #
 #
 #
-# @app.route('/part/GPU/')
-# def showAllGPUs
 #
 #
-#
-#
-# @app.route('/part/powersupply/')
-# def showAllPowerSupplies():
-#
-#
-#
-#
-# @app.route('/part/soundcard')
-# def showAllSoundcards():
+# @app.route('/wishlist/')
+# def showUserWishlist():
 
-
-
-
-@app.route('/build/')
-def showAllBuilds():
-
-
-
-
-@app.route('/build/<string:build_name>')
-def showBuild(build_name):
-
-
-
-
-@app.route('/build/new', methods = ['GET', 'POST'])
-def createBuild():
-
-
-
-
-
-@app.route('/build/<string:build_name>/edit', methods = ['GET', 'POST'])
-def editBuild(build_name):
-
-
-
-
-
-@app.route('/build/<string:build_name>/delete', methods = ['GET', 'POST'])
-def deleteBuild(build_name):
-
-
-
-
-
-
-@app.route('/wishlist/')
-def showUserWishlist():
-
-
+##############################################################################
 
 
 
@@ -353,6 +311,6 @@ def showUserWishlist():
 ############################################################################
 
 if __name__ == '__main__':
-    app.secret_key = 'ultra_secret_key'
+    app.secret_key = 'asdfq'
     app.debug = True
     app.run(host = '0.0.0.0', port = 5001)

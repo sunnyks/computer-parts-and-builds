@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+  {% block content %}
+
+  <div class = 'flash'>
+  		      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+          <ul>
+          {% for message in messages %}
+              <li> <strong> {{ message }} </strong> </li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+      {% endwith %}
+
+  </div>
+
+
+  <a href="{{url_for('newPart')}}">
+    <button class="btn">Add Part</button>
+  </a>
+  <a href="{{url_for('editPart')}}">
+    <button class="btn">Edit Part</button>
+  </a>
+  <a href="{{url_for('deletePart')}}">
+    <button class="btn">Delete Part</button>
+  </a>
+
+  <a href="{{url_for(showHome)}}">Back to categories</a>
+
+  <h1>All Parts</h1>
+
+  <div>
+
+    {% for part in parts %}
+    <a href="{{url_for('showPart', part_id=part.id)}}">{{part.name}}</a>
+    {% endfor %}
+  </div>
+
+
+  {% endblock %}
+
+</html>

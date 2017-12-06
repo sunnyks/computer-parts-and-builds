@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% block content %}
+
+  <a href="{{url_for(showHome)}}">Back to categories</a>
+
+
+  <h1>All Parts</h1>
+
+  <div>
+
+    {% for part in parts %}
+    <a href="{{url_for('showPart', part_id=part.id)}}">{{part.name}}</a>
+    {% endfor %}
+  </div>
+
+
+  {% endblock %}
+
+
+</html>

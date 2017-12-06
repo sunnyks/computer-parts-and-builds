@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+{% block content %}
+
+  <div class = 'flash'>
+  		      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+          <ul>
+          {% for message in messages %}
+              <li> <strong> {{ message }} </strong> </li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+      {% endwith %}
+
+  </div>
+
+  <h1>Parts</h1>
+
+  <a href="{{url_for('showLogin')}}">Login with google</a>
+
+  <a href="{{url_for('newPart')}}">
+    <button class="btn">Add Part</button>
+  </a>
+
+  <div>
+    <a href="{{url_for(showAllParts)}}">All Parts</a>
+
+    {% for type in distinct_types %}
+    <a href = "{{url_for('showAllPartsOfType', part_type = type)}}">{{type}}</a>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
+</html>
