@@ -20,7 +20,7 @@ class Part(Base):
 
     id = Column(Integer, primary_key = True)
     type = Column(String(40))
-    name = Column(String(80), nullable = False)
+    name = Column(String(100), nullable = False)
     price = Column(String(10))
     manufacturer = Column(String(40))
     model_number = Column(String(100))

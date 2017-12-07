@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% block content %}
+
+  <div class = 'flash'>
+  		      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+          <ul>
+          {% for message in messages %}
+              <li> <strong> {{ message }} </strong> </li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+      {% endwith %}
+
+  </div>
+
+
+  <div class="crud">
+
+    <a href="{{url_for('newPart')}}">
+      <button class="btn">Add Part</button>
+    </a>
+
+    <a href="{{url_for(showHome)}}">Back to categories</a>
+
+  </div>
+
+
+  <h1>Add New Part</h1>
+
+  <div>
+
+
+    <form method="post">
+      <label for="name">Name:</label>
+      <input type="text" maxlength="100" name="name" placeholder="Name of part" />
+
+      <label for="type">Type:</label>
+      <input type="text" maxlength="40" name="type" placeholder="Type of part" />
+
+      <label for="price">Price:</label>
+      <input type="text" maxlength="10" name="price" placeholder="Price in $" />
+
+      <label for="manufacturer">Manufacturer:</label>
+      <input type="text" maxlength="40" name="manufacturer" placeholder="Who makes this hardware?" />
+
+      <label for="model_number">Model #:</label>
+      <input type="text" maxlength="100" name="model_number" placeholder="Model number of part" />
+
+      <button type="submit" class="btn" id="submit">Add Part</button>
+
+
+
+    </form>
+
+  </div>
+
+  {% endblock %}
+
+
+</html>

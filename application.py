@@ -177,9 +177,9 @@ def showAllParts():
 def showPart(part_id):
     part = session.query(Part).filter_by(id = part_id).one()
     if 'username' in login_session:
-        return render_template('partinfo.html', part_name = part.name, part_type = part.type, part_price = part.price, part_manufacturer = part.manufacturer, part_model_number = part.model_number)
+        return render_template('partinfo.html', part = part)
     else:
-        return render_template('publicpartinfo.html', part_name = part.name, part_type = part.type, part_price = part.price, part_manufacturer = part.manufacturer, part_model_number = part.model_number)
+        return render_template('publicpartinfo.html', part = part)
 
 
 
@@ -218,9 +218,9 @@ def editPart(part_id):
         session.add(editedPart)
         session.commit()
         flash('Part successfully edited')
-        return redirect(url_for('showPart', part_id = part_id))
+        return redirect(url_for('showPart', part_id = editedPart.id))
     else:
-        return render_template('editPart.html', partToEdit = editedPart)
+        return render_template('editpart.html', part = editedPart)
 
 
 
@@ -236,7 +236,7 @@ def deletePart(part_id):
         flash('Part Successfully Deleted')
         return redirect(url_for('showHome'))
     else:
-        return render_template('deletePart.html', partToDelete = deletePart)
+        return render_template('deletePart.html', part = deletePart)
 
 
 
@@ -249,6 +249,8 @@ def showAllPartsOfType(part_type):
     else:
         return render_template('publicpartsoftype.html', parts = parts, type = part_type)
 
+
+# show parts from manufacturer
 
 
 # @app.route('/compare/<int:part_id1>/<int:part_id2>/')
