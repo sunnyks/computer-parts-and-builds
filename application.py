@@ -253,7 +253,12 @@ def showAllPartsOfType(part_type):
 
 
 
-############ JSON METHODS
+############ JSON
+
+@app.route('/part/<int:part_id>/JSON')
+def partInfoJSON(part_id):
+    part = session.query(Part).filter_by(id = part_id).one()
+    return jsonify(part.serialize)
 
 
 # show parts from manufacturer

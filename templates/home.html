@@ -18,13 +18,19 @@
 
   </div>
 
-  <h1>Parts</h1>
+  <div class='crud'>
 
-  <a href="{{url_for('showLogin')}}">Login with google</a>
+    <a href="{{url_for('showLogin')}}">Login with google</a>
 
-  <a href="{{url_for('newPart')}}">
-    <button class="btn">Add Part</button>
-  </a>
+    <a href="{{url_for('gdisconnect')}}">Logout</a>
+
+    <a href="{{url_for('newPart')}}">
+      <button class="btn">Add Part</button>
+    </a>
+
+  </div>
+
+    <h1>Parts</h1>
 
   <div>
     <a href="{{url_for(showAllParts)}}">All Parts</a>
