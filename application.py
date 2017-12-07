@@ -236,7 +236,7 @@ def deletePart(part_id):
         flash('Part Successfully Deleted')
         return redirect(url_for('showHome'))
     else:
-        return render_template('deletePart.html', part = deletePart)
+        return render_template('deletepart.html', part = deletePart)
 
 
 
@@ -248,6 +248,12 @@ def showAllPartsOfType(part_type):
         return render_template('partsoftype.html', parts = parts, type = part_type)
     else:
         return render_template('publicpartsoftype.html', parts = parts, type = part_type)
+
+
+
+
+
+############ JSON METHODS
 
 
 # show parts from manufacturer
@@ -304,13 +310,6 @@ def showAllPartsOfType(part_type):
 
 ##############################################################################
 
-
-
-
-##############################################################################
-# JSON METHODS & Stuff idk
-
-############################################################################
 
 if __name__ == '__main__':
     app.secret_key = 'asdfq'

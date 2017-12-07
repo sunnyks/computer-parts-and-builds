@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
   {% block content %}
 
   <div class = 'flash'>
@@ -22,32 +23,22 @@
     <a href="{{url_for('newPart')}}">
       <button class="btn">Add Part</button>
     </a>
-    <a href="{{url_for('editPart', part_id = part.id)}}">
-      <button class="btn">Edit Part</button>
-    </a>
-    <a href="{{url_for('deletePart', part_id = part.id)}}">
-      <button class="btn">Delete Part</button>
-    </a>
 
     <a href="{{url_for('showHome')}}">Back to categories</a>
 
   </div>
 
-  <h1>{{part.name}} Info</h1>
 
-  <div class="info">
+  <h1>All {{type}}s</h1>
 
-    <!-- print all that part info -->
-    <ul>
-      <li>Part: {{part.name}}</li>
-      <li>Type: {{part.type}}</li>
-      <li>Price: {{part.price}}</li>
-      <li>Manufacturer: {{part.manufacturer}}</li>
-      <li>Model Number: {{part.model_number}}</li>
-    </ul>
+  <div>
+
+    {% for part in parts %}
+      <a href="{{url_for('showPart', part_id=part.id)}}">{{part.name}}</a>
+      </br>
+    {% endfor %}
 
   </div>
-
 
 
   {% endblock %}

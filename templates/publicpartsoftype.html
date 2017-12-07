@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+  {% block content %}
+
+
+  <h1>All {{type}}s</h1>
+
+  <div>
+
+    {% for part in parts %}
+      <a href="{{url_for('showPart', part_id=part.id)}}">{{part.name}}</a>
+      </br>
+    {% endfor %}
+
+  </div>
+
+
+  {% endblock %}
+
+</html>

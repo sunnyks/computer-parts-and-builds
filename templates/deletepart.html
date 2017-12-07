@@ -22,33 +22,17 @@
     <a href="{{url_for('newPart')}}">
       <button class="btn">Add Part</button>
     </a>
-    <a href="{{url_for('editPart', part_id = part.id)}}">
-      <button class="btn">Edit Part</button>
-    </a>
-    <a href="{{url_for('deletePart', part_id = part.id)}}">
-      <button class="btn">Delete Part</button>
-    </a>
 
     <a href="{{url_for('showHome')}}">Back to categories</a>
 
   </div>
 
-  <h1>{{part.name}} Info</h1>
+  <h1>Are you sure you want to delete {{part.name}}???</h1>
 
-  <div class="info">
+  <form method = 'post'>
 
-    <!-- print all that part info -->
-    <ul>
-      <li>Part: {{part.name}}</li>
-      <li>Type: {{part.type}}</li>
-      <li>Price: {{part.price}}</li>
-      <li>Manufacturer: {{part.manufacturer}}</li>
-      <li>Model Number: {{part.model_number}}</li>
-    </ul>
-
-  </div>
-
-
+    <button type="submit" class='btn' id="sumbit">Delete {{part.name}}</button>
+  </form>
 
   {% endblock %}
 
