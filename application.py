@@ -16,7 +16,8 @@ from flask import make_response
 import requests
 
 
-# CLIENT JSON thing
+# CLIENT JSON
+CLIENT_ID = json.loads(open('client_secret.json', 'r').read())['web']['client_id']
 
 engine = create_engine('sqlite:///computerpartsandbuilds.db')
 Base.metadata.bind = engine
