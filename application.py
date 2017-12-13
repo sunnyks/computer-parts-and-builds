@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
-app = Flask(__name__)
-
 from sqlalchemy import create_engine, asc
-from sqlalchemy import sessionmaker
-from database_setup import Base, User, Part,
+from sqlalchemy.orm import sessionmaker
+from database_setup import Base, User, Part
 #from database_setup import Motherboard, CPU, CPU_Cooler, Memory, Storage, GPU, PowerSupply, SoundCard, Wishlist, Build
 
 from flask import session as login_session
@@ -11,13 +9,17 @@ import random, string
 
 from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
 import httplib2
-import jsonify
+import json
 from flask import make_response
 import requests
+
+app = Flask(__name__)
+
 
 
 # CLIENT JSON
 CLIENT_ID = json.loads(open('client_secret.json', 'r').read())['web']['client_id']
+
 
 engine = create_engine('sqlite:///computerpartsandbuilds.db')
 Base.metadata.bind = engine
@@ -40,9 +42,11 @@ def gconnect():
         response = make_response(json.dumps('Invalid state parameter'), 401)
         response.headers['Content-type'] = 'application/json'
         return response
+    # get authorization code
     code = request.data
     try:
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        # Upgrade authorization code into credentials object
+        oauth_flow = flow_from_clientsecrets('client_secret.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -231,7 +235,7 @@ def deletePart(part_id):
     if 'username' not in login_session:
         return redirect('/login')
     deletePart = session.query(Part).filter_by(id = part_id).one()
-    if request.method = 'POST':
+    if request.method == 'POST':
         session.delete(deletePart)
         session.commit()
         flash('Part Successfully Deleted')
@@ -320,4 +324,4 @@ def partInfoJSON(part_id):
 if __name__ == '__main__':
     app.secret_key = 'asdfq'
     app.debug = True
-    app.run(host = '0.0.0.0', port = 5001)
+    app.run(host = '0.0.0.0', port = 5000)

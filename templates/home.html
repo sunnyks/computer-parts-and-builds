@@ -33,7 +33,7 @@
     <h1>Parts</h1>
 
   <div>
-    <a href="{{url_for(showAllParts)}}">All Parts</a>
+    <a href="{{url_for('showAllParts')}}">All Parts</a>
 
     {% for type in distinct_types %}
     <a href = "{{url_for('showAllPartsOfType', part_type = type)}}">{{type}}</a>
